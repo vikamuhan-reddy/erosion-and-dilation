@@ -2,88 +2,103 @@
 
 ## Aim
 
-To write a Python program using OpenCV to perform morphological operations such as Erosion and Dilation on an image.
+To write a Python program using OpenCV to perform morphological
+operations such as Erosion and Dilation on an image.
 
-The program performs the following operations:
+## Learning Objectives
 
-- Image Erosion
-- Image Dilation
+-   Understand morphological operations in image processing.
+-   Learn how erosion reduces the boundaries of foreground objects.
+-   Learn how dilation expands the boundaries of foreground objects.
+-   Compare the results of erosion and dilation.
 
 ## Software Used
 
-- Anaconda – Python 3.7
-- Jupyter Notebook / VS Code
-- OpenCV (cv2)
-- NumPy
-- Matplotlib
+-   Anaconda -- Python 3.7
+-   Jupyter Notebook / VS Code
+-   OpenCV (`cv2`)
+-   NumPy
+-   Matplotlib
 
-## Algorithm
+## Algorithm and Explanation
 
-### Step 1:
+### Step 1: Import Libraries
 
-Import the required libraries: OpenCV, NumPy, and Matplotlib.
+Import OpenCV, NumPy, and Matplotlib for image processing and displaying
+the results.
 
-### Step 2:
+``` python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+```
 
-Create a blank image using NumPy.
+### Step 2: Create Image and Insert Text
 
-### Step 3:
+Create a blank black image using NumPy and insert the text `OPENCV`
+using OpenCV.
 
-Insert text onto the image using OpenCV's text drawing function.
+``` python
+image = np.zeros((300, 500), dtype=np.uint8)
+cv2.putText(image, "OPENCV", (50, 170),
+            cv2.FONT_HERSHEY_SIMPLEX, 3, 255, 8)
+```
 
-### Step 4:
+### Step 3: Create Kernel
 
-Display the original image.
+Create a 5 × 5 structuring element (kernel) for the morphological
+operations.
 
-### Step 5:
+``` python
+kernel = np.ones((5, 5), np.uint8)
+```
 
-Create a structuring element (kernel) of suitable size.
+### Step 4: Perform Erosion and Dilation
 
-### Step 6: Image Erosion
+Erosion reduces the thickness of the foreground text, while dilation
+increases its thickness.
 
-- Apply the erosion operation using the created kernel.
-- Remove pixels from the boundaries of foreground objects.
-- Display the eroded image.
+**Erosion**
 
-### Step 7: Image Dilation
+``` python
+erosion = cv2.erode(image, kernel, iterations=1)
+```
 
-- Apply the dilation operation using the same kernel.
-- Add pixels to the boundaries of foreground objects.
-- Display the dilated image.
+**Dilation**
 
-### Step 8:
+``` python
+dilation = cv2.dilate(image, kernel, iterations=1)
+```
 
-Compare the original, eroded, and dilated images.
+### Step 5: Display and Compare Results
 
-## Program
+Display the original, eroded, and dilated images together for
+comparison.
 
-## Developed By
+``` python
+images = [image, erosion, dilation]
+titles = ["Original Image", "Erosion", "Dilation"]
 
-**Name:** ____________________________
+plt.figure(figsize=(12, 4))
 
-**Register No:** ______________________
+for i in range(3):
+    plt.subplot(1, 3, i+1)
+    plt.imshow(images[i], cmap='gray')
+    plt.title(titles[i])
+    plt.axis('off')
 
-## Output
+plt.tight_layout()
+plt.show()
 
-### Original Image
+print("Erosion and Dilation Completed Successfully!")
+```
 
-- A text image containing characters is displayed.
-- The image serves as the input for morphological processing.
+## Expected Output
 
-### Erosion
+<img width="916" height="226" alt="image" src="https://github.com/user-attachments/assets/06ed54e5-522b-4b20-95d4-99eb22d8e57c" />
 
-- Original image is displayed.
-- Eroded image is displayed.
-- The thickness of the characters is reduced.
-- Object boundaries shrink inward.
-
-### Dilation
-
-- Original image is displayed.
-- Dilated image is displayed.
-- The thickness of the characters increases.
-- Object boundaries expand outward.
 
 ## Result
 
-Thus, the morphological operations **Erosion** and **Dilation** are successfully implemented using OpenCV.
+Thus, the morphological operations **Erosion** and **Dilation** are
+successfully implemented using OpenCV.
